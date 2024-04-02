@@ -1,6 +1,10 @@
 document.getElementById('generateBtn').addEventListener('click', async () => {
     const prompt = document.getElementById('prompt').value;
     const responseContainer = document.getElementById('response');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    // Show loading spinner
+    loadingSpinner.classList.remove('hidden');
 
     const response = await fetch('/generate-response', {
         method: 'POST',
@@ -9,6 +13,9 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
         },
         body: JSON.stringify({ prompt })
     }).then(response => response.json());
+
+    // Hide loading spinner
+    loadingSpinner.classList.add('hidden');
 
     console.log(response.response)
     // Create a container for the response box
@@ -29,5 +36,3 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
         responseBox.scrollTop = responseBox.scrollHeight;
     }
 });
-
-
